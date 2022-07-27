@@ -9,67 +9,84 @@ const responseReducer = (state = { questions: [] }, action) => {
       questions: [
         ...state.questions,
 
-        {
-          id: action.id,
-          timestamp: action.timestamp,
-          question: action.question,
-          askee: action.askee,
-          status: action.status,
-        },
-      ],
-    };
-  }
-  if (action.type === "reject") {
-    return {
-      questions: [
-        ...state.questions,
+  switch (action.type) {
 
-        {
-          id: action.id,
-          timestamp: action.timestamp,
-          question: action.question,
-          askee: action.askee,
-          status: action.status,
-        },
-      ],
-    };
-  }
 
-  if (action.type === "swap") {
-    const oldQuestion = state.questions.find((obj) => {
-      return obj.id === action.id;
-    });
-    console.log(oldQuestion);
-    const oldStatus = oldQuestion["status"];
-    const index = state.questions.findIndex((obj) => {
-      return obj.id === action.id;
-    });
-
-    if (oldStatus === "Accepted") {
-      console.log("Changing to rejected");
-      const newQuestions = [...state.questions];
-      console.log(newQuestions);
-      newQuestions[index]["status"] = "Rejected";
+    case "accept":
       return {
-        counter: state.counter + 9,
-        questions: [...newQuestions],
-      };
-    }
+        questions: [
+          ...state.questions,
 
-    if (oldStatus === "Rejected") {
-      console.log("changing to accepted");
-      const newQuestions = [...state.questions];
-      console.log(newQuestions);
-      newQuestions[index]["status"] = "Accepted";
+          {
+            id: action.id,
+            timestamp: action.timestamp,
+            question: action.question,
+            askee: action.askee,
+            status: action.status,
+          },
+        ],
+      };
+
+    case "reject":
       return {
-        counter: state.counter - 9,
-        questions: [...newQuestions],
-      };
-    }
-  }
+        questions: [
+          ...state.questions,
 
-  return state;
+          {
+            id: action.id,
+            timestamp: action.timestamp,
+            question: action.question,
+            askee: action.askee,
+            status: action.status,
+          },
+        ],
+      };
+
+    case "swap":
+      const oldQuestion = state.questions.find((obj) => {
+        return obj.id === action.id;
+      });
+      console.log(oldQuestion);
+      const oldStatus = oldQuestion["status"];
+      const index = state.questions.findIndex((obj) => {
+        return obj.id === action.id;
+      });
+
+      if (oldStatus === "Accepted") {
+        console.log("Changing to rejected");
+        const newQuestions = [...state.questions];
+        console.log(newQuestions);
+        newQuestions[index]["status"] = "Rejected";
+        return {
+          counter: state.counter + 9,
+          questions: [...newQuestions],
+        };
+      }
+
+      if (oldStatus === "Rejected") {
+        console.log("changing to accepted");
+        const newQuestions = [...state.questions];
+        console.log(newQuestions);
+        newQuestions[index]["status"] = "Accepted";
+        return {
+          counter: state.counter - 9,
+          questions: [...newQuestions],
+        };
+      }
+      default:
+        return state;
+  }
 };
+/*
+if (action.type === "accept") {
+}
+if (action.type === "reject") {
+}
+
+if (action.type === "swap") {
+  return state;
+}
+*/
 
 const store = createStore(responseReducer);
 export default store;

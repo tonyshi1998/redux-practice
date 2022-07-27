@@ -128,8 +128,8 @@ export default function Home() {
     > every time a user changes the data, save it in the localstorage
     > hint: window.storage.setItem and window.storage.getItem
     > when the user opens the app, it waits 2 seconds to load the data so we can simulate an API fetch
-  
-  - put code into src folder (Done)
+
+   - put code into src folder (Done)
   - Case switch (Done)
   - Remove drived states (Done)
   - try reduce (Done)
