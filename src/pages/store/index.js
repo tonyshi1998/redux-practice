@@ -1,7 +1,16 @@
 import { createStore } from "redux";
+import { useEffect } from "react";
 
 const responseReducer = (state = { questions: [] }, action) => {
+
+
+  if (action.type === "accept") {
+    return {
+      questions: [
+        ...state.questions,
+
   switch (action.type) {
+
 
     case "accept":
       return {

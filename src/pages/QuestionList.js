@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { thunkedStore } from './index'
 
 const QuestionList = (props) => {
   const dispatch = useDispatch();
@@ -6,6 +7,7 @@ const QuestionList = (props) => {
   const swapAnswer = (questionID) => {
     console.log("Changing answer for question with ID", { questionID });
     dispatch({type: "swap", id: questionID})
+    thunkedStore(qList)
   };
 
   const qList = useSelector((state) => state.questions);
