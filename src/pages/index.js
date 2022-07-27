@@ -1,13 +1,22 @@
-import { Provider, useDispatch } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import store from "./store/index.js";
 import Counter from "./Counter";
 import QuestionList from "./QuestionList";
 
+
+
 export default function Home() {
   const dispatch = useDispatch();
   const [question, setQuestion] = useState("");
   const [person, setPerson] = useState("");
+  const qList = useSelector(state => state.questions);
+  const thunkedStore = (state) => {
+    return function storeState(){
+      localStorage.setItem('storedQuestions', JSON.stringify(qList));
+    }
+  }
+  
 
   const acceptHandler = () => {
     console.log("Accepted!!!");
@@ -68,6 +77,7 @@ export default function Home() {
     if (buttonName === "rejectBtn") {
       rejectHandler();
     }
+    thunkedStore(qList)()
   };
 
   return (
@@ -99,7 +109,7 @@ export default function Home() {
           </div>
         </form>
       </div>
-      <QuestionList></QuestionList>
+      {<QuestionList></QuestionList>}
       {/* <style jsx><{`
         .container {
 
@@ -118,10 +128,10 @@ export default function Home() {
     > every time a user changes the data, save it in the localstorage
     > hint: window.storage.setItem and window.storage.getItem
     > when the user opens the app, it waits 2 seconds to load the data so we can simulate an API fetch
-  - put code into src folder
-  - Remove drived states
-  - Case switch
-
+  
+  - put code into src folder (Done)
+  - Case switch (Done)
+  - Remove drived states (Done)
   - try reduce (Done)
   - QuestionArr -> questions (Done)
 */
