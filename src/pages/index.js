@@ -99,7 +99,7 @@ export default function Home() {
           </div>
         </form>
       </div>
-      <QuestionList></QuestionList>
+      {<QuestionList></QuestionList>}
       {/* <style jsx><{`
         .container {
 
@@ -119,9 +119,9 @@ export default function Home() {
     > hint: window.storage.setItem and window.storage.getItem
     > when the user opens the app, it waits 2 seconds to load the data so we can simulate an API fetch
   - put code into src folder
-  - Remove drived states
+  
   - Case switch
-
+  - Remove drived states
   - try reduce (Done)
   - QuestionArr -> questions (Done)
 */
